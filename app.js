@@ -3,6 +3,7 @@
  */
 const nunjucks = require('nunjucks');
 const express = require('express');
+const tweetBank = require('./tweetBank.js')
 const app = express();
 
 /**
@@ -20,15 +21,16 @@ app.get('/', (req, res, next) => {
     next();
 });
 
-app.get('/news',  (req, res,) => {
-    const people = [{ name: 'Full' }, { name: 'Stacker' }, { name: 'Son' }];
-    res.render('index', { title: 'Hall of Fame', people: people });
-    next();
-});
-
 app.get('/index', (req, res, next) => {
     const people = [{ name: 'Full' }, { name: 'Stacker' }, { name: 'Son' }];
     res.render('index', { title: 'Hall of Fame', people: people });
+    
+    next();
+})
+
+app.get('/tweets', (req, res, next) => {
+    let tweetList = tweetBank.list();
+    res.render('index', {title: 'Hall of Shame', people: tweetList});
     next();
 })
 
@@ -43,7 +45,7 @@ app.use((req, res, next) => {
 app.listen(3000);
 console.log('listening on 3000');
 
-var locals = {
+let locals = {
     title: 'An Example',
     people: [
         { name: 'Gandalf' },
@@ -52,6 +54,3 @@ var locals = {
     ]
 };
 nunjucks.configure('views', { noCache: true });
-nunjucks.render('index.html', locals, function (err, output) {
-    console.log(output);
-});
