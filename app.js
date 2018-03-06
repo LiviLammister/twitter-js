@@ -28,9 +28,10 @@ app.get('/index', (req, res, next) => {
     next();
 })
 
-app.get('/tweets', (req, res, next) => {
+app.get('/tweets/[0-9]', (req, res, next) => {
     let tweetList = tweetBank.list();
-    res.render('index', {title: 'Hall of Shame', people: tweetList});
+    console.log(tweetList[1])
+    res.render('tweets', {title: 'a tweet should be here', people: tweetList[1]});
     next();
 })
 
