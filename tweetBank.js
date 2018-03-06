@@ -35,10 +35,3 @@ for (let i = 0; i < 10; i++) {
     module.exports.add(getFakeName(), getFakeTweet());
 }
 
-console.log(find((prop) => {
-    if (prop.name.includes("Scott")) {
-        console.log(prop.content)
-    }
-    
-}));
-

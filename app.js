@@ -16,6 +16,7 @@ nunjucks.configure('views', { noCache: true });
 /**
  * Welcome message for requesting root URI
  */
+app.use(express.static('public'))
 app.get('/', (req, res, next) => {
     res.send('Welcome');
     next();
@@ -27,11 +28,11 @@ app.get('/index', (req, res, next) => {
     
     next();
 })
-
-app.get('/tweets/[0-9]', (req, res, next) => {
+// '/tweets/:tweetID' req.params
+app.get('/tweets/:tweetID', (req, res, next) => {
     let tweetList = tweetBank.list();
-    console.log(tweetList[1])
-    res.render('tweets', {title: 'a tweet should be here', people: tweetList[1]});
+    singletweet = tweetList.req.params.tweetID
+    res.render('index', {title: 'a tweet should be here', people: tweetList});
     next();
 })
 
@@ -55,3 +56,9 @@ let locals = {
     ]
 };
 nunjucks.configure('views', { noCache: true });
+
+
+/**
+ * Old
+ * 
+ */
